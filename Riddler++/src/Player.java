@@ -1,70 +1,82 @@
 /**
  * Player class for Riddler++
  * @author taramla
- * @version 9
+ * @version 10
  *
  * Set up all player attributes
  * Create methods for game play flow and interaction with user
  *
  */
+import java.util.Scanner;
 public class Player {
     private String name;
     private int score;
-    private int startTime; //long
-    private int endTime; //long
+    private long startTime;
+    private long endTime;
+    Scanner keyboard = new Scanner (System.in);
+    public Player(){
 
-    Player(){ }
-    public void askRoundSetUp() {
-        // String askDiff = "Enter a difficulty you'd like to play";
-        // String askNum = "Enter a number of riddles you'd like to play";
-        String difficulty;
-        int numberToPlay;
+    }
+    public String askRoundSetUp() {
+        String difficultyReply;
+        String numberToPlayReply;
+        System.out.println("Enter a difficulty you'd like to play");
+        difficultyReply = keyboard.nextLine();
+        System.out.println("Enter a number of riddles you'd like to play");
+        numberToPlayReply = keyboard.nextLine();
+        return difficultyReply +  "," + numberToPlayReply;
     }
     public boolean startTimer(){
-        //startTime = System.nanoTime();
+        startTime = System.nanoTime();
        return true;
     }
     public String askRiddleQuestion(String riddleQuestion){
         String answer ="";
         System.out.println(riddleQuestion);
+        answer = keyboard.nextLine();
         return answer;
     }
     public String tellWrong(int value){
+        String reply = "";
         score = score-value;
-        return "Would you like to get a hint, guess again, or skip";
+        System.out.println("Wrong, enter h for hint, g for another guess, or s for skip");
+        reply = keyboard.nextLine();
+        return reply;
     }
-    public String tellCorrect(int value){
+    public void tellCorrect(int value){
         score = score+value;
-        return "Great! The next riddle is: ";
+        System.out.println("Great! That's correct");
+
     }
     public String askRiddleHint(String riddleHint){
         String answer="";
         System.out.println("Hint is: " + riddleHint);
+        System.out.println("What is your guess?");
+        answer = keyboard.nextLine();
         return answer;
     }
     public boolean endTimer(){
-        //endTime= System.nanoTime();
+        endTime= System.nanoTime();
         return true;
     }
-    public String calculateScore(){
-        int totalTime = (endTime-startTime)/1000000000; //long
-        return "For this round, your time was: " + totalTime + " and your score was: " + score;
+    public void calculateScore(){
+        long totalTime = (endTime-startTime)/1000000000;
+        System.out.println("For this round, your time was: " + totalTime + " and your score was: " + score);
     }
-    public String askPlayAgain(){
-        String againAsk = "Would you like to play again?";
-        String againAskAnswer = "";
-        if (againAskAnswer.equals("yes")){
-            return playRound();
+    public boolean askPlayAgain(){
+        String againAskReply = "";
+        System.out.println("Would you like to play again?");
+        againAskReply = keyboard.nextLine();
+        if (againAskReply.equals("yes")){
+            return true;
         }
-        else (againAskAnswer.equals("no")){
-            return exitGame();
-        };
+        else {
+            return false;
+        }
     }
-    public String goodbye(){
-        System.exit(0);
-        return "Thanks for playing!";
-
-    }
+    public void goodbye() {
+        System.out.print("Thanks for playing! Goodbye");
+        }
     }
 
 
