@@ -1,3 +1,12 @@
+/**
+ * Player class for Riddler++
+ * @author kaylinluck
+ * @version 10
+ *
+ * Riddle object class
+ * Used to create and access public/private attributes of each riddle in the RDB
+ *
+ */
 public class Riddle {
     public String riddleQuestion;
     private String riddleAnswer;
