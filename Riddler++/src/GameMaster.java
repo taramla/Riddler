@@ -28,54 +28,55 @@ public class GameMaster<fileName> {
 
 
     public boolean playRound() {
-       while(!response.equals("quit") || roundOver == true) {
-           String setUp = myPlayer.askRoundSetUp();
-           String[] s = setUp.split(",");
-           difficulty = s[0];
-           numberToPlay = Integer.parseInt(s[1]);
-           riddlesForRound = makeRiddleList(difficulty, numberToPlay);
-           int c = rand.nextInt(riddlesForRound.size() - 1);
-           currentRiddle = riddlesForRound.get(c);
-           myPlayer.startTimer();
-           for (int i = 0; i <= riddlesForRound.size() - 1; i++) {
-               response = myPlayer.askRiddleQuestion(currentRiddle.riddleQuestion);
-               boolean nextRiddle = false;
-               while (nextRiddle != true) {
-                   if (currentRiddle.checkRiddleAnswer(response) == true) {
-                       riddlesForRound.remove(currentRiddle);
-                       myPlayer.tellCorrect(currentRiddle.value);
-                       nextRiddle = true;
-                   } else {
-                       response = myPlayer.tellWrong(currentRiddle.value);
-                       if (response.equals("h")) {
-                           String hint = currentRiddle.findRiddleHint();
-                           String newGuess = myPlayer.askRiddleHint(hint);
-                           if (currentRiddle.checkRiddleAnswer(newGuess) == true) {
-                               riddlesForRound.remove(currentRiddle);
-                               nextRiddle = true;
-                           } else {
-                               myPlayer.tellWrong(currentRiddle.value);
-                           }
-                       } else if (response.equals("s")) {
-                           riddlesForRound.remove(currentRiddle);
-                           nextRiddle = true;
-                       } else if (response.equals("g")) {
-
-                       }
-                   }
-               }
-               if (riddlesForRound.size() != 0) {
-                   c = rand.nextInt(riddlesForRound.size() - 1);
-                   currentRiddle = riddlesForRound.get(c);
-               } else {
-                   myPlayer.endTimer();
-                   roundOver = true;
-               }
-           }
-       }
-       myPlayer.calculateScore();
-       play = myPlayer.askPlayAgain();
-       return play;
+        while(!response.equals("quit") || roundOver == true) {
+            String setUp = myPlayer.askRoundSetUp();
+            String[] s = setUp.split(",");
+            difficulty = s[0];
+            numberToPlay = Integer.parseInt(s[1]);
+            riddlesForRound = makeRiddleList(difficulty, numberToPlay);
+            int c = rand.nextInt(riddlesForRound.size() - 1);
+            currentRiddle = riddlesForRound.get(c);
+            myPlayer.startTimer();
+            for (int i = 0; i <= riddlesForRound.size() - 1; i++) {
+                response = myPlayer.askRiddleQuestion(currentRiddle.riddleQuestion);
+                boolean nextRiddle = false;
+                int counter = 0;
+                while (nextRiddle != true) {
+                    if (currentRiddle.checkRiddleAnswer(response) == true) {
+                        riddlesForRound.remove(currentRiddle);
+                        if (counter == 0) {
+                            myPlayer.tellCorrect(currentRiddle.value);
+                        }
+                        nextRiddle = true;
+                    }
+                    else {
+                        counter++;
+                        response = myPlayer.tellWrong(currentRiddle.value);
+                        if (response.equals("h")) {
+                            String hint = currentRiddle.findRiddleHint();
+                            response = myPlayer.askRiddleHint(hint);
+                        }
+                        else if (response.equals("s")) {
+                            riddlesForRound.remove(currentRiddle);
+                            nextRiddle = true;
+                        }
+                        else if (response.equals("g")) {
+                            response = myPlayer.askRiddleQuestion(currentRiddle.riddleQuestion);
+                        }
+                    }
+                }
+                if (riddlesForRound.size() != 0) {
+                    c = rand.nextInt(riddlesForRound.size() - 1);
+                    currentRiddle = riddlesForRound.get(c);
+                } else {
+                    myPlayer.endTimer();
+                    roundOver = true;
+                }
+            }
+        }
+        myPlayer.calculateScore();
+        play = myPlayer.askPlayAgain();
+        return play;
     }
 
     public ArrayList<Riddle> makeRiddleList(String difficulty, int numberToPlay){
