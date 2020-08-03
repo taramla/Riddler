@@ -28,7 +28,7 @@ public class Player {
     }
     public boolean startTimer(){
         startTime = System.nanoTime();
-       return true;
+        return true;
     }
     public String askRiddleQuestion(String riddleQuestion){
         String answer ="";
