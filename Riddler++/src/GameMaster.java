@@ -2,7 +2,7 @@ import java.util.*;
 public class GameMaster<fileName> {
     /**
      * GameMaster Stub
-     * 	 * @author KayLuck
+     * 	 * @author kaylinluck
      * 	 * @version 10
      *
      *   A nearly complete version of GM
@@ -21,9 +21,10 @@ public class GameMaster<fileName> {
     private String difficulty;
     Random rand = new Random();
 
-    public GameMaster(String fileName){ //unfinished
+    public GameMaster(String fileName) throws Exception { //unfinished
+        //need a method in Player like askPlayerInfo(): String to get player name, etc.
+        myRDB = new RiddleDataBase(fileName);
         unusedListOfRiddles = myRDB.getAllRiddles();
-
     }
 
 
@@ -92,7 +93,7 @@ public class GameMaster<fileName> {
 
     public void exitGame() { //unfinished
         myPlayer.goodbye();
-
+        //clean up code needed here
         return;
     }
 }

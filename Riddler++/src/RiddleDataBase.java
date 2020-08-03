@@ -10,18 +10,17 @@ import java.util.HashMap;
  * Used to create one hashmap of key (easy, medium, and hard), value (ArrayList<Riddle>)
  *
  */
-public class riddleDataBase {
+public class RiddleDataBase {
     private HashMap<String, ArrayList<Riddle>> fullListOfRiddles;
-
-    public riddleDataBase(String fileName) throws Exception{
+    public RiddleDataBase(String fileName) throws Exception{
         String data = "";
-        ArrayList<Riddle> easyRiddles;
-        ArrayList<Riddle> medRiddles;
-        ArrayList<Riddle> hardRiddles;
+        ArrayList<Riddle> easyRiddles = new ArrayList<>();
+        ArrayList<Riddle> medRiddles = new ArrayList<>();
+        ArrayList<Riddle> hardRiddles = new ArrayList<>();
         data = new String(Files.readAllBytes(Paths.get(fileName)));
         String[] riddleArray = data.split("\n");
         for (String r :riddleArray) {
-            Riddle newRiddle = makeRiddle(r); 
+            Riddle newRiddle = makeRiddle(r);
             if (newRiddle.difficulty.equals("easy")) {
                 easyRiddles.add(newRiddle);
             }
@@ -32,7 +31,6 @@ public class riddleDataBase {
                 hardRiddles.add(newRiddle);
             }
         }
-
         fullListOfRiddles.put("easy", easyRiddles);
         fullListOfRiddles.put("medium", medRiddles);
         fullListOfRiddles.put("hard", hardRiddles);
@@ -41,7 +39,6 @@ public class riddleDataBase {
     public HashMap getAllRiddles(){
         return fullListOfRiddles;
     }
-
     private Riddle makeRiddle(String data) {
         String[] riddleArray = data.split("/");
         String riddleQuestion = riddleArray[0];
