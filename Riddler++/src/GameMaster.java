@@ -28,6 +28,7 @@ public class GameMaster<fileName> {
         //dH2: see style guide A1.6.4, never throw "Exception", but a more specific one, here likely file problem passes up from RiddleDataBase to GameMaster to main (for now)
         myRDB = new RiddleDataBase(fileName);
         unusedListOfRiddles = myRDB.getAllRiddles();
+
     }
 
 

@@ -15,9 +15,9 @@ public class Riddlerpp
 	 * Possibly future extension, pass fully qualified file name as parameter to replace the constant
 	 */
 
-	public static final String fileName = "RiddlerTextFile.txt";
+	public static final String fileName = "Riddler++/myRiddles.txt";
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		boolean keepPlaying;
 		GameMaster g;
 		g = new GameMaster( fileName );
